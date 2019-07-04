@@ -9,8 +9,9 @@
 <form action="#" th:action="@{/}" th:object="${myNumbers}" method="post">
     <input type="text" th:field="*{n1}"/> + <input type="text" th:field="*{n2}"/>
     <p></p>
-    <input type="submit"/>
+    <input type="submit" value="Submit"/>
 </form>
-<h3>Result: <span th:text="${sum}"/></h3>
+<h3>Result: <span th:text="${sum}"></span>
+</h3>
 </body>
 </html>

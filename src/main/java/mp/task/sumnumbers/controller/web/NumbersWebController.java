@@ -3,6 +3,7 @@ package mp.task.sumnumbers.controller.web;
 import mp.task.sumnumbers.model.MyNumbers;
 import mp.task.sumnumbers.service.NumbersService;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,11 +26,18 @@ public class NumbersWebController {
 	}
 
 	@PostMapping("")
-	public ModelAndView sumNumbers(@ModelAttribute("myNumbers") MyNumbers myNumbers) {
-		Integer sum = numbersService.sumNumbers(myNumbers);
-		ModelAndView modelAndView = new ModelAndView("index");
-		modelAndView.addObject("sum", sum);
+	public ModelAndView sumNumbers(ModelAndView modelAndView, @ModelAttribute("myNumbers") MyNumbers myNumbers,
+	                               BindingResult bindingResult) {
+
+		modelAndView.setViewName("index");
 		modelAndView.addObject("myNumbers", myNumbers);
+
+		if (bindingResult.hasErrors()) {
+			modelAndView.addObject("sum", "error");
+		} else {
+			Integer sum = numbersService.sumNumbers(myNumbers);
+			modelAndView.addObject("sum", sum);
+		}
 		return modelAndView;
 	}
 }
