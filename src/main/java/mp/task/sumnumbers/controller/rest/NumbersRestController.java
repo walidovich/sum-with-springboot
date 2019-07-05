@@ -5,6 +5,8 @@ import mp.task.sumnumbers.service.NumbersService;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.HandlerInterceptor;
 
+import javax.servlet.http.HttpServletRequest;
+
 @RestController
 @RequestMapping("/api")
 public class NumbersRestController implements HandlerInterceptor {
@@ -17,7 +19,8 @@ public class NumbersRestController implements HandlerInterceptor {
 
 	@ResponseBody
 	@PostMapping
-	public Integer sumNumbers(@RequestBody MyNumbers myNumbers) {
-		return numbersService.sumNumbers(myNumbers);
+	public String sumNumbers(@RequestBody MyNumbers myNumbers, HttpServletRequest request) {
+		return request.getRemoteAddr() +
+				", parameters " + myNumbers.getN1() + ", " + myNumbers.getN2() + ", result " + numbersService.sumNumbers(myNumbers);
 	}
 }

@@ -24,5 +24,7 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
+    compile 'org.springframework.boot:spring-boot-starter-cache'
+    compile 'net.sf.ehcache:ehcache'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
