@@ -7,7 +7,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -24,14 +23,9 @@ public class LogController {
 	public ModelAndView home() {
 		ModelAndView modelAndView = new ModelAndView("log");
 		Cache log = cacheManager.getCache("sumNumbers");
-		List<String> addresses = new ArrayList<>();
 		List<List<String>> keys = log.getKeys();
-		for (List<String> key : keys) {
-			addresses.add(key.get(0));
-		}
 		Map<Object, Element> logMap = log.getAll(keys);
 		modelAndView.addObject("logMap", logMap);
-		modelAndView.addObject("addresses", addresses);
 		return modelAndView;
 	}
 }
