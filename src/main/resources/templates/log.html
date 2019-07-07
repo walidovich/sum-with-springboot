@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Log Page</title>
+</head>
+<body>
+<span th:each="key :${logMap.keySet().toArray()}">
+    <span th:text="${key[0]}"></span>,
+    parameters <span th:text="${key[1]}"></span>,
+    <span th:text="${key[2]}"></span>
+    result <span th:text="${logMap.get(key).getValue()}"></span>
+    <br>
+</span>
+</body>
+</html>

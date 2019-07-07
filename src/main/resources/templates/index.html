@@ -7,7 +7,8 @@
 <body>
 <h3>Enter two numbers, the result will be computed:</h3>
 <form action="#" th:action="@{/}" th:object="${myNumbers}" method="post">
-    <input type="text" th:field="*{n1}"/> + <input type="text" th:field="*{n2}"/>
+    <input type="text" th:field="*{n1}" required="required"/>
+    + <input type="text" th:field="*{n2}" required="required"/>
     <p></p>
     <input type="submit" value="Submit"/>
 </form>

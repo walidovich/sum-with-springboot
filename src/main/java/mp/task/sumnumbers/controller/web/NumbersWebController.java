@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
+
 @Controller
 public class NumbersWebController {
 
@@ -27,7 +29,7 @@ public class NumbersWebController {
 
 	@PostMapping("")
 	public ModelAndView sumNumbers(ModelAndView modelAndView, @ModelAttribute("myNumbers") MyNumbers myNumbers,
-	                               BindingResult bindingResult) {
+	                               HttpServletRequest request, BindingResult bindingResult) {
 
 		modelAndView.setViewName("index");
 		modelAndView.addObject("myNumbers", myNumbers);
@@ -35,7 +37,7 @@ public class NumbersWebController {
 		if (bindingResult.hasErrors()) {
 			modelAndView.addObject("sum", "error");
 		} else {
-			Integer sum = numbersService.sumNumbers(myNumbers);
+			String sum = numbersService.sumNumbers(myNumbers, request);
 			modelAndView.addObject("sum", sum);
 		}
 		return modelAndView;
