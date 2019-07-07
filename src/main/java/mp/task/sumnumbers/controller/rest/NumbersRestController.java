@@ -22,8 +22,6 @@ public class NumbersRestController implements HandlerInterceptor {
 	@ResponseBody
 	@PostMapping("/addition")
 	public String sumNumbers(@RequestBody MyNumbers myNumbers, HttpServletRequest request) {
-		String response = request.getRemoteAddr() +
-				", parameters " + myNumbers.getN1() + ", " + myNumbers.getN2() + ", result " + numbersService.sumNumbers(myNumbers, request);
-		return response;
+		return numbersService.sumNumbers(myNumbers, request);
 	}
 }

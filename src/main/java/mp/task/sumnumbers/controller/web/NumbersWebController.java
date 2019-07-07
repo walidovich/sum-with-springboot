@@ -1,9 +1,8 @@
 package mp.task.sumnumbers.controller.web;
 
+import mp.task.sumnumbers.controller.rest.NumbersRestController;
 import mp.task.sumnumbers.model.MyNumbers;
-import mp.task.sumnumbers.service.NumbersService;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,10 +13,10 @@ import javax.servlet.http.HttpServletRequest;
 @Controller
 public class NumbersWebController {
 
-	private NumbersService numbersService;
+	private NumbersRestController numbersRestController;
 
-	public NumbersWebController(NumbersService numbersService) {
-		this.numbersService = numbersService;
+	public NumbersWebController(NumbersRestController numbersRestController) {
+		this.numbersRestController = numbersRestController;
 	}
 
 	@GetMapping("")
@@ -29,17 +28,11 @@ public class NumbersWebController {
 
 	@PostMapping("")
 	public ModelAndView sumNumbers(ModelAndView modelAndView, @ModelAttribute("myNumbers") MyNumbers myNumbers,
-	                               HttpServletRequest request, BindingResult bindingResult) {
-
+	                               HttpServletRequest request) {
 		modelAndView.setViewName("index");
 		modelAndView.addObject("myNumbers", myNumbers);
-
-		if (bindingResult.hasErrors()) {
-			modelAndView.addObject("sum", "error");
-		} else {
-			String sum = numbersService.sumNumbers(myNumbers, request);
-			modelAndView.addObject("sum", sum);
-		}
+		String sum = numbersRestController.sumNumbers(myNumbers, request);
+		modelAndView.addObject("sum", sum);
 		return modelAndView;
 	}
 }
